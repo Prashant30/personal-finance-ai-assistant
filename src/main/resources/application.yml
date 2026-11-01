@@ -1,0 +1,34 @@
+spring:
+  application:
+    name: personal-finance-ai-assistant
+  profiles:
+    default: demo
+  datasource:
+    url: jdbc:sqlite:${FINANCE_DB_PATH:finance.db}
+    driver-class-name: org.sqlite.JDBC
+    hikari:
+      maximum-pool-size: 1
+      connection-init-sql: PRAGMA busy_timeout=5000
+  flyway:
+    enabled: true
+  ai:
+    openai:
+      base-url: ${VLLM_BASE_URL:http://localhost:8000}
+      api-key: ${VLLM_API_KEY:local-development-key}
+      chat:
+        model: ${VLLM_MODEL:Qwen/Qwen3-8B}
+        temperature: 0.1
+
+assistant:
+  model: ${VLLM_MODEL:Qwen/Qwen3-8B}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+

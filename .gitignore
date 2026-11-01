@@ -1,0 +1,25 @@
+# Build output
+target/
+
+# Runtime data
+runtime/
+*.db
+*.db-shm
+*.db-wal
+
+# Secrets and local configuration
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# IDE and operating system
+.idea/
+.vscode/*
+!.vscode/extensions.json
+.DS_Store
+
+# Logs
+*.log
+
