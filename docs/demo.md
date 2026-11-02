@@ -11,3 +11,7 @@ Use these questions for a repeatable live demonstration. The values below come f
 
 Verification rule: treat the `evidence` array as authoritative. Model prose is presentation, not the source of financial calculations.
 
+## Live POC checkpoint
+
+Qwen3-8B on a Vast.ai RTX 3090 returned the expected evidence for October grocery spending (`201.05`), September versus October totals (`2237.82`, `2257.53`, difference `19.71`), and October category breakdown (sum `2257.53`). This confirms the path from the local Spring Boot app through the SSH tunnel to vLLM and back to SQLite-backed calculations. Results may vary in wording between runs; check the evidence values.
+

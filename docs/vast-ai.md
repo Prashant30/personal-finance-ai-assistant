@@ -1,6 +1,6 @@
 # Vast.ai and vLLM Setup
 
-Rent the GPU only after local tests pass. A single RTX 3090 with 24 GB VRAM, 32 GB system RAM, and about 60 GB disk is sufficient for Qwen3-8B at an 8K context length.
+Rent the GPU only after local tests pass. A single RTX 3090 with 24 GB VRAM, 32 GB system RAM, and 50 GB disk ran Qwen3-8B at an 8K context length for this POC.
 
 ## 1. Verify the remote environment
 
@@ -34,7 +34,13 @@ Run `scripts/vast/start-vllm.sh` on the remote host, or use its command directly
 
 ## 3. Open the tunnel
 
-Inside a second Dev Container terminal:
+On the Mac, when running the app with Docker Compose:
+
+```bash
+ssh -N -L 8000:127.0.0.1:8000 -p SSH_PORT root@SSH_HOST
+```
+
+Compose uses `http://host.docker.internal:8000/v1` to reach this tunnel. If running the app directly inside the Dev Container, open the tunnel inside a second Dev Container terminal instead:
 
 ```bash
 ssh -N -L 8000:127.0.0.1:8000 -p SSH_PORT root@SSH_HOST
@@ -44,16 +50,15 @@ The `-L` option must appear before the remote destination. Keep the terminal ope
 
 ## 4. Verify and run
 
-Inside the Dev Container:
+In the same environment where the tunnel is open, verify the model:
 
 ```bash
 export VLLM_API_KEY='the-same-temporary-key'
 curl http://localhost:8000/v1/models \
   -H "Authorization: Bearer $VLLM_API_KEY"
-./mvnw spring-boot:run
 ```
 
-Run the example request in the README and compare its evidence to a direct transaction query.
+For Docker Compose, save the key in the ignored `.env` file and run `docker compose up -d --force-recreate` on the Mac. For direct execution inside the Dev Container, run `./mvnw spring-boot:run` there with the exported key. Then run the example request in the README and compare its evidence to a direct transaction query.
 
 ## 5. Control cost
 

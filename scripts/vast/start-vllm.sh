@@ -10,6 +10,5 @@ exec vllm serve "$MODEL_NAME" \
   --port 8000 \
   --api-key "$VLLM_API_KEY" \
   --max-model-len 8192 \
-  --enable-reasoning \
   --reasoning-parser qwen3
 

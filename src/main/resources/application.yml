@@ -13,7 +13,7 @@ spring:
     enabled: true
   ai:
     openai:
-      base-url: ${VLLM_BASE_URL:http://localhost:8000}
+      base-url: ${VLLM_BASE_URL:http://localhost:8000/v1}
       api-key: ${VLLM_API_KEY:local-development-key}
       chat:
         model: ${VLLM_MODEL:Qwen/Qwen3-8B}

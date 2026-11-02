@@ -49,12 +49,17 @@ curl 'http://localhost:8080/api/v1/transactions?startDate=2026-10-01&endDate=202
 
 The transaction API works without a GPU. The assistant endpoint returns `503 AI_SERVICE_UNAVAILABLE` until vLLM is connected.
 
+For Docker Compose, `.env` holds the vLLM address and model name. Add your saved
+`VLLM_API_KEY=...` there, then run `docker compose up -d --force-recreate`.
+Compose reads `.env` automatically, including from new terminals. Do not commit
+this file; `.env.example` shows the format without a real key.
+
 ## Connect the live model
 
 Follow [Vast.ai setup](docs/vast-ai.md). After opening the SSH tunnel inside the Dev Container, export the model configuration and restart Spring Boot:
 
 ```bash
-export VLLM_BASE_URL=http://localhost:8000
+export VLLM_BASE_URL=http://localhost:8000/v1
 export VLLM_API_KEY='your-temporary-key'
 export VLLM_MODEL=Qwen/Qwen3-8B
 ./mvnw spring-boot:run

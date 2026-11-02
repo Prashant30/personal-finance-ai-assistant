@@ -1,6 +1,8 @@
 package dev.prashant.finance.common;
 
 import dev.prashant.finance.assistant.AiServiceException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -10,8 +12,11 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 public class ApiExceptionHandler {
 
+    private static final Logger log = LoggerFactory.getLogger(ApiExceptionHandler.class);
+
     @ExceptionHandler(AiServiceException.class)
     ProblemDetail handleAiUnavailable(AiServiceException exception) {
+        log.error("AI request failed", exception);
         ProblemDetail problem = ProblemDetail.forStatusAndDetail(
                 HttpStatus.SERVICE_UNAVAILABLE,
                 "The AI model is unavailable. Transaction APIs remain operational.");
